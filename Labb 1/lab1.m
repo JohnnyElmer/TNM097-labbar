@@ -34,10 +34,10 @@ load('illum.mat')
 
 
 RGB_raw_D65 = Ad' * (chips20.*CIED65)';
-%showRGB(RGB_raw_D65');
+showRGB(RGB_raw_D65');
 
 RGB_raw2_D65 = Ad2' * (chips20.*CIED65)';
-%showRGB(RGB_raw2_D65');
+showRGB(RGB_raw2_D65');
 
 %ad more reddish because the red spectrum is a lot wider interval on the red
 %spectrum and ad2 is more greenish because it has a larger green spectrum
@@ -63,21 +63,21 @@ plot(NF2)
 %2.2
 
 RGB_cal_D65 = RGB_raw_D65.*NF;
-%showRGB(RGB_cal_D65');
+showRGB(RGB_cal_D65');
 
 RGB_cal2_D65 = RGB_raw2_D65.*NF2;
-% showRGB(RGB_cal2_D65');
+showRGB(RGB_cal2_D65');
 
 %they look the same, wiiii
 
 %%
 %2.3
 
-% plot(y,CIED65)
-% legend('CIED65')
-% figure
-% plot(y,CIEA)
-% legend('CIEA')
+plot(y,CIED65)
+legend('CIED65')
+figure
+plot(y,CIEA)
+legend('CIEA')
 
 %outdoor more blue and variable, indoor light has a softer curve and the
 %red light is expressed the most.
@@ -85,13 +85,13 @@ RGB_cal2_D65 = RGB_raw2_D65.*NF2;
 %%
 %2.4
 
-RGB_raw_65 = Ad' * (chips20.*CIED65)';
-RGB_raw_65 = RGB_raw_65.*NF;
-%showRGB(RGB_raw_65');
+RGB_raw1_65 = Ad' * (chips20.*CIED65)';
+RGB_raw2_65 = RGB_raw1_65.*NF;
+showRGB(RGB_raw2_65');
 
-RGB_raw2_A = Ad' * (chips20.*CIEA)';
-RGB_raw1_A = RGB_raw2_A.*NF;
-%showRGB(RGB_raw2_A');
+RGB_raw1_A = Ad' * (chips20.*CIEA)';
+RGB_raw2_A = RGB_raw1_A.*NF;
+showRGB(RGB_raw2_A');
 
 %like we mentioned before the outdoor light is more blue in tone and the
 %indoor light is more on the red side.
@@ -103,20 +103,21 @@ R = ones(1,61);
 
 NFR = Ad' * (R.*CIED65)';
 NFR = 1./NFR;
-RGB_raw_65 = RGB_raw_D65.*NFR;
-showRGB(RGB_raw_65');
+RGB_new_raw_65 = RGB_raw_D65.*NFR;
+showRGB(RGB_new_raw_65');
 
 NFR2 = Ad' * (R.*CIEA)';
 NFR2 = 1./NFR2;
-RGB_raw2_A = RGB_raw1_A.*NFR2;
-showRGB(RGB_raw2_A');
-
-%don't know if this is what you meant to do but it works
-%they look the same now at least.
+RGB_new_raw2_A = RGB_raw2_A.*NFR2;
+showRGB(RGB_new_raw2_A');
 
 %we are updating a thing we should not update but fuck it, orka fixa den
 %skiten nu, vi har godkänt!
 
+%tried looking into if we were updating anything strangely but at the most
+%we update NFR and NFR2, nothing else, so either something else is
+%fundamentally wrong somewhere or this is fully correct, might want to ask
+%Daniel/Sasan about that
 %%
 %3.1
 load('xyz.mat')
